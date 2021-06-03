@@ -1,0 +1,235 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="btpanel/ajax/addCrontab">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">任务类型:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="sType" data-rule="required" class="form-control selectpicker" name="sType">
+                {foreach name="data['sTypeArray']" item="vo"}
+                <option value="{$key}" {if condition="$key == 'toShell'" }selected{/if}>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">任务名称:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="name" data-rule="required" class="form-control" name="name" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">执行周期:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <select id="type" data-rule="required" class="form-control selectpicker" name="type">
+                        {foreach name="data['cycleArray']" item="vo"}
+                        <option value="{$key}">{$vo}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div id='whereDom'></div>
+            </div>
+        </div>
+    </div>
+    <div id="sTypeDom" style="display: none;"></div>
+    <div class="form-group sbody" style="display: none;">
+        <label class="control-label col-xs-12 col-sm-2" id="sBodyTitle">脚本内容:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea name="sBody" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group urladdress" style="display: none;">
+        <label class="control-label col-xs-12 col-sm-2">URL地址:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input type="number" name="urladdress" value="http://" class="form-control" placeholder="URL地址">
+        </div>
+    </div>
+    <div class="form-group rememory" style="display: none;">
+        <label class="control-label col-xs-12 col-sm-2">提示:</label>
+        <div class="col-xs-12 col-sm-8">
+            释放PHP、MYSQL、PURE-FTPD、APACHE、NGINX的内存占用,建议在每天半夜执行!
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+<!-- 每天 -->
+<script type="text/html" id='day-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <div class="input-group">
+            <input type="number" name="hour" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">小时</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereMinuteDom">
+        <div class="input-group">
+            <input type="number" name="minute" value="30" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+</script>
+<!-- N天 -->
+<script type="text/html" id='day-n-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <div class="input-group">
+            <input id="where1" type="number" name="where1" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">天</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereHourDom">
+        <div class="input-group">
+            <input type="number" name="hour" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">小时</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereMinuteDom">
+        <div class="input-group">
+            <input type="number" name="minute" value="30" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+</script>
+<!-- 每小时 -->
+<script type="text/html" id='hour-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <div class="input-group">
+            <input type="number" name="minute" value="30" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+</script>
+<!-- N小时 -->
+<script type="text/html" id='hour-n-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <div class="input-group">
+            <input type="number" name="where1" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">小时</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereMinuteDom">
+        <div class="input-group">
+            <input type="number" name="minute" value="30" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+</script>
+<!-- N分钟 -->
+<script type="text/html" id='minute-n-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <div class="input-group">
+            <input type="number" name="where1" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+</script>
+<!-- 每周 -->
+<script type="text/html" id='week-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <select id="week" class="form-control selectpicker" name="week">
+            {foreach name="data['weekArray']" item="vo"}
+            <option value="{$key}" {if condition="$key == '1'"}selected{/if}>{$vo}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereHourDom">
+        <div class="input-group">
+            <input type="number" name="hour" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">小时</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereMinuteDom">
+        <div class="input-group">
+            <input type="number" name="minute" value="30" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+   
+</script>
+
+<script type="text/html" id='month-tpl'>
+    <div class="col-xs-12 col-sm-3" id="where1Dom">
+        <div class="input-group">
+            <input id="where1" type="number" name="where1" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">日</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereHourDom">
+        <div class="input-group">
+            <input type="number" name="hour" value="1" class="form-control" data-rule="required">
+            <span class="input-group-addon">小时</span>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3" id="whereMinuteDom">
+        <div class="input-group">
+            <input type="number" name="minute" value="30" class="form-control" data-rule="required">
+            <span class="input-group-addon">分钟</span>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id='sTypeSiteTpl'>
+    <div class="form-group site_list">
+        <label class="control-label col-xs-12 col-sm-2"><%=title%>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="sName" class="selectpicker form-control" name="sName">
+                <% for(var i=0; i<data.length; i++){ %>
+                    <option value="<%=data[i].ps%>"><%=data[i].name == 'ALL'?data[i].ps:data[i].name+'['+data[i].ps+']'%></option>
+                <% } %>
+                </select>
+        </div>
+    </div>
+    <div class="form-group site_list">
+        <label class="control-label col-xs-12 col-sm-2">备份到:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="backupTo" class="selectpicker form-control" name="backupTo">
+                <% for(var i=0; i<orderOpt.length; i++){ %>
+                    <option value="<%=orderOpt[i].value%>"><%=orderOpt[i].name%></option>
+                <% } %>
+            </select> 
+        </div>
+    </div>
+    <div class="form-group site_list">
+        <label class="control-label col-xs-12 col-sm-2">保留最新:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="save" type="number" name="save" value="{$row['save']?:3}" class="form-control" placeholder="保留最新" data-rule="required">
+                <span class="input-group-addon">天</span>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id='sTypePathTpl'>
+    <div class="form-group site_list">
+        <label class="control-label col-xs-12 col-sm-2"><%=title%>:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="sName" type="text" name="sName"  value="{$row['sName']?:'/www/wwwroot/'}" class="form-control" placeholder="" data-rule="required">
+                <span class="input-group-addon getDir"><i class="fa fa-folder-open"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group site_list">
+        <label class="control-label col-xs-12 col-sm-2">备份到:</label>
+        <div class="col-xs-12 col-sm-8">
+            <select id="backupTo" class="selectpicker form-control" name="backupTo">
+                <% for(var i=0; i<orderOpt.length; i++){ %>
+                    <option value="<%=orderOpt[i].value%>"><%=orderOpt[i].name%></option>
+                <% } %>
+            </select> 
+        </div>
+    </div>
+    <div class="form-group site_list">
+        <label class="control-label col-xs-12 col-sm-2">保留最新:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="save" type="number" name="save" value="{$row['save']?:3}" class="form-control" placeholder="保留最新" data-rule="required">
+                <span class="input-group-addon">天</span>
+            </div>
+        </div>
+    </div>
+</script>

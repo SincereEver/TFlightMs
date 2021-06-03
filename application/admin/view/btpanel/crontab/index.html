@@ -1,0 +1,55 @@
+<style>
+    .layui-layer-fast .layui-layer-btn{
+         text-align: right !important;
+    }
+</style>
+<div class="panel panel-solid">
+    <div class="panel-heading">
+        任务列表 
+        <button type="button" class="btn btn-default btn-xs btn-refresh" style="margin-left: 10px;"><i class="fa fa-refresh"></i></button>
+        <button type="button" class="btn btn-default btn-xs btn-add">新建</button>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>任务名称</th>
+                    <th>状态</th>
+                    <th>周期</th>
+                    <th>执行时机</th>
+                    <th>保存数量</th>
+                    <th>备份到</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="table-crontab"></tbody>
+        </table>
+    </div>
+</div>
+<script type="text/html" id="crontabtpl">
+    <% for(var i=0; i<data.length; i++){ %>
+        <tr data-id='<%=data[i].id%>'>
+            <td data-field="name"><%=data[i].name%></td>
+            <td data-field="status"><a href="javascript:;" class="set_task_status" data-id="<%=data[i].id%>">
+                <%if(data[i].status != 1){%>
+                    <span class="text-red" data-status="1" style="cursor:pointer" title="启用该计划任务">停用<i class="fa fa-fw fa-pause"></i></span>
+                <%}else{%>
+                    <span class="text-green" data-status="0" style="cursor:pointer" title="停用该计划任务">正常<i class="fa fa-fw fa-play"></i></span>
+                <%}%>
+                </a>
+            </td>
+            <td data-field="type"><%=data[i].type%></td>
+            <td data-field="cycle"><%=data[i].cycle%></td>
+            <td data-field="save"><%=data[i].save?data[i].save+'份':'-'%></td>
+            <td data-field="backupTo"><%=data[i].backupTo%></td>
+            <td data-field="addtime"><%=data[i].addtime%></td>
+            <td data-id='<%=data[i].id%>'>
+                <button type="button" class="btn btn-default btn-xs btn-StartTask">执行</button>
+                <button type="button" class="btn btn-default btn-xs btn-edit">编辑</button>
+                <button type="button" class="btn btn-default btn-xs btn-GetLogs">日志</button>
+                <button type="button" class="btn btn-danger btn-xs  btn-del">删除</button>
+            </td>
+        </tr>
+    <% } %>
+</script>

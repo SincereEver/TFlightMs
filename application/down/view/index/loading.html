@@ -1,0 +1,166 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>
+      {$row.name}-下载
+    </title>
+    
+    <style>
+    .ios-index .box{
+        padding:10vw 0 13.333vw 0 !important;
+    }
+    
+    </style>
+    <link href="/css/chunk-vendors.f3162bd3.css" rel="stylesheet">
+    <link href="/css/app.7951a517.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/vue/2.6.7/vue.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  </head>
+  
+  <body class="">
+    <div id="app">
+      <div class="ios-index" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="正在准备链接，请稍等...">
+        <!--div class="box">
+            <div style="text-align:center">
+                <img src="{$row.icon_image}" style="width:80px;border-radius:10%" alt="">
+                <h1 id="" style="color:#FFFFFF;font-size:24px;">{$row.name}</h1>
+            </div>
+          <div class="item AClass">
+            <div class="setup">
+              第一步
+            </div>
+            <div class="body">
+              <div class="text">
+                <p>
+                  首先安装【TestFlight】然后返回本页
+                </p>
+                <p>
+                  如已安装请直接操作第二步
+                </p>
+              </div>
+              <div class="button">
+                <a href="https://itunes.apple.com/app/id899247664"
+                target="_blank">
+                  <div class="ico">
+                    <img src="/img/A.a622d36f.png" alt="">
+                  </div>
+                  <div class="tip">
+                    安装 TestFlight
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="item BClass">
+            <div class="setup">
+              第二步
+            </div>
+            <div class="body">
+              <div class="text">
+                <p>
+                  点击下载 【{$row.name}】
+                </p>
+                <p>
+                  请勿在意名字下载完成后打开即为{$row.name}
+                </p>
+              </div>
+              <div class="button">
+                <a href="/testflight/ids/{$row.id}" 
+                class="clipboard_button">
+                  <div class="ico">
+                    <img src="{$row.icon_image}" alt="" style="border-radius: 6px;">
+                  </div>
+                  <div class="tip">
+                    下载 {$row.name}
+                  </div>
+                </a>
+              </div>
+              <div class="tutorial">
+                <div class="text">
+                  <a href="/tutorial/index.html"><font color="#ff0000">如遇提示 "无法打开链接" 查看设置教程 &gt;&gt;&gt;</font></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {if $row.by_link}
+          <div class="item BClass">
+            <div class="setup">
+              备用下载
+            </div>
+            <div class="body">
+              <div class="text">
+                <p>
+                  苹果备用下载通道
+                </p>
+                <p>
+                  以上方式均无法安装的时候请点击备用下载
+                </p>
+              </div>
+              <div class="button">
+                <a href="{$row.by_link}"
+                target="_blank" class="clipboard_button">
+                  <div class="ico">
+                    <img src="{$row.icon_image}" alt="" style="border-radius: 6px;">
+                  </div>
+                  <div class="tip">
+                    备用下载通道
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          {/if}
+        </div>
+      </div>
+    </div>
+
+    <div class="van-toast van-toast--middle van-toast--loading" style="z-index: 2004; display: none;">
+      <div class="van-loading van-loading--circular van-toast__loading">
+        <span class="van-loading__spinner van-loading__spinner--circular">
+          <svg viewBox="25 25 50 50" class="van-loading__circular">
+            <circle cx="50" cy="50" r="20" fill="none">
+            </circle>
+          </svg>
+        </span>
+      </div-->
+    </div>
+  </body>
+  <script >
+      
+      var app = new Vue({el: '#app',data:{fullscreenLoading:false}});
+      check();
+      function check(){
+          
+const data = JSON.stringify({
+  "isAjax": true
+});
+
+const xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === this.DONE) {
+      if(this.responseText){
+          window.location.href =this.responseText
+      }else{
+          setTimeout(()=>{
+              check()
+          },1000);
+      }
+    
+  }
+});
+
+xhr.open("POST", "/loading/ids/{$row.id}");
+xhr.setRequestHeader("cache-control", "no-cache");
+xhr.setRequestHeader("Content-Type", "application/json");
+
+xhr.send(data);
+          
+      }
+  </script>
+
+</html>

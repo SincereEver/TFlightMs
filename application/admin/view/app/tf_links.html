@@ -1,0 +1,60 @@
+<div class="panel-heading" style="background:#E8EDF0">
+    <div class="panel-lead">
+        TF内测链接 (<b>{php}echo count($row);{/php}</b>)
+    </div>
+    
+
+</div>
+
+
+<table id="table" class="table table-striped">
+    <div style="margin: 10px 0;">
+        <button data-url="app/createLinks/ids/{$ids}" type="submit" class="btn btn-primary btn-ajax btn-magic"><i class="fa fa-repeat"></i>{php}echo count($row)==0?' 获取链接':' 重新获取链接';{/php} </button>
+
+        <button data-url="/updateLinks/{$ids}" type="submit" class="btn btn-primary btn-ajax btn-magic"><i class="fa fa-repeat"></i> 外部更新</button>
+    </div>
+
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>应用名</th>
+            <th>内测链接</th>
+            <th>接收邮箱</th>
+            <th>获取时间</th>
+            <th>操作</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {volist name="row" id="vo" }
+        <tr>
+            <td style="width: 30px;">{$i}</td>
+            <td style="width: 150px;">{$vo.name}</td>
+            <td>
+                <div class="input-group input-group-sm" style="width:250px;">
+                    <input type="text" class="form-control input-sm" value="{$vo.link}">
+                    <span class="input-group-btn input-group-sm">
+                        <a href="{$vo.link}" target="_blank" class="btn btn-default btn-sm">
+                            <i class="fa fa-link"></i>
+                        </a>
+                    </span>
+                </div>
+            </td>
+            <td style="width: 150px;">{$vo.email}</td>
+            <td style="width: 150px;">{:human_date($vo.update_time)}</td>
+            <td style="width: 100px;">
+                <a href="javascript:;" data-success="alert('sss')" data-table-id="table" data-refresh="true" data-url="app/delLink/ids/{$vo.id}" class="btn btn-xs btn-magic btn-danger btn-ajax" data-original-title="删除">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
+
+        </tr>
+        {/volist}
+
+    </tbody>
+</table>
+<script>
+    function del($id){
+        
+    }
+</script>

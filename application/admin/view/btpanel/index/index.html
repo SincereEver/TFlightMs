@@ -1,0 +1,135 @@
+<div class="panel panel-solid">
+    <div class="panel-body">
+        <div class="row text-center" style="height:100px">
+            <div class="col-md-3 col-sm-6 col-xs-12" id="panel-load">
+                <input type="hidden" class="knob knob-load" value="0" data-width="100%" data-height="90"
+                    data-fgColor="#3c8dbc" disabled>
+                <div class="knob-label">负载状态</div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" id="panel-cpu">
+                <input type="hidden" class="knob knob-cpu" value="0" data-width="100%" data-height="90"
+                    data-fgColor="#3c8dbc" disabled>
+                <div class="knob-label">CPU使用率</div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" id="panel-memory">
+                <i class="fa fa-rocket hidden" aria-hidden="true" style="z-index: 999;"></i>
+                <input type="hidden" class="knob knob-memory" value="0" data-width="100%" data-height="90"
+                    data-fgColor="#3c8dbc" disabled>
+                <div class="knob-label">内存使用率</div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12" id="panel-disk">
+                <input type="hidden" class="knob knob-disk" value="0" data-width="100%" data-height="90"
+                    data-fgColor="#3c8dbc" disabled>
+                <div class="knob-label">空间使用率</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs" id="liveLine">
+                <li class="active"><a href="#line-net" data-toggle="tab" data-chart='net'>流量</a></li>
+                <li><a href="#line-cpu" data-toggle="tab" data-chart='cpu'>CPU</a></li>
+            </ul>
+            <div class="tab-content penel-liveLine">
+                <div class="active tab-pane" id="line-net">
+                    <div class="row margin text-center" id="net-info">
+                        <div class="col-md-3 col-sm-6">
+                            <p>
+                                <i class="fa fa-upload text-orange" aria-hidden="true"></i> 上行: <a id="upSpeed">0 KB</a>
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <p>
+                                <i class="fa fa-download text-blue" aria-hidden="true"></i> 下行: <a id="downSpeed">0
+                                    KB</a>
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <p>总发送: <a id="upAll">0 KB</a></p>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <p>总接收: <a id="downAll">0 KB</a></p>
+                        </div>
+                    </div>
+                    <div class="row margin">
+                        <div id="chart-net" class="chart-line" style="width:100%;"></div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="line-cpu">
+                    <div class="row margin">
+                        <div id="chart-cpu" class="chart-line" style="width:100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-12">
+        <div class="panel panel-ServerInfo">
+            <div class="panel-body" style="padding-top:0;">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td width="140">操作系统</td>
+                            <td>{$SystemTotal.system}</td>
+                        </tr>
+                        <tr>
+                            <td>面板版本</td>
+                            <td>{$SystemTotal.version}</td>
+                        </tr>
+                        <tr>
+                            <td width="140">已不间断运行</td>
+                            <td>{$SystemTotal.time}</td>
+                        </tr>
+                        <tr>
+                            <td width="140">PHP版本</td>
+                            <td>{:PHP_VERSION}</td>
+                        </tr>
+                        <tr>
+                            <td width="140">运行方式</td>
+                            <td>{:php_sapi_name()}</td>
+                        </tr>
+                        <tr>
+                            <td>{:__('Software')}</td>
+                            <td>{$Think.server.SERVER_SOFTWARE}</td>
+                        </tr>
+                        <tr>
+                            <td>{:__('ThinkPHP版本')}</td>
+                            <td>{:THINK_VERSION}</td>
+                        </tr>
+                        <tr>
+                            <td>{:__('FastAdmin version')}</td>
+                            <td>{$Think.config.fastadmin.version}</td>
+                        </tr>
+                        <tr>
+                            <td>{:__('Sapi name')}</td>
+                            <td>{:php_sapi_name()}</td>
+                        </tr>
+                        <tr>
+                            <td>{:__('Debug mode')}</td>
+                            <td>{$Think.config.app_debug?__('Yes'):__('No')}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-solid">
+    <div class="panel-heading">
+        网站信息
+        <div class="pull-right">
+            <select id='siteType'>
+                <option value="-1">全部分类</option>
+                {foreach $SiteTypes as $vo} 
+                <option value="{$vo.id}">{$vo.name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table id="table" class="table table-bordered text-center" width="100%"></table>
+    </div>
+</div>

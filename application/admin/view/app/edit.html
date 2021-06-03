@@ -1,0 +1,102 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group ">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Developer_account_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-developer_account_id " disabled data-field="appid" data-rule="required" data-source="developer_account/index" class="form-control selectpage" name="row[developer_account_id]" type="text" value="{$row.developer_account_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('User_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_id" data-rule="required" data-source="user/user/index" data-field="nickname" class="form-control selectpage" name="row[user_id]" type="text" value="{$row.user_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" class="form-control" name="row[name]" type="text" value="{$row.name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('英文名')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name_en" class="form-control" name="row[name_en]" type="text" value="{$row.name_en|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Icon_image')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="input-group">
+                <input id="c-icon_image" class="form-control" size="50" name="row[icon_image]" type="text" value="{$row.icon_image|htmlentities}">
+                <div class="input-group-addon no-border no-padding">
+                    <span><button type="button" id="faupload-icon_image" class="btn btn-danger faupload" data-input-id="c-icon_image" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp" data-multiple="false" data-preview-id="p-icon_image"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                    <span><button type="button" id="fachoose-icon_image" class="btn btn-primary fachoose" data-input-id="c-icon_image" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                </div>
+                <span class="msg-box n-right" for="c-icon_image"></span>
+            </div>
+            <ul class="row list-inline faupload-preview" id="p-icon_image"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Bid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bid" disabled class="form-control" name="row[bid]" type="text" value="{$row.bid|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Download_count')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-download_count" class="form-control" name="row[download_count]" type="number" value="{$row.download_count|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('View_count')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-view_count" class="form-control" name="row[view_count]" type="number" value="{$row.view_count|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('安卓地址')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-az_links" class="form-control" name="row[az_links]" type="text" value="{$row.az_links|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('备用地址')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-by_link" class="form-control" name="row[by_link]" type="text" value="{$row.by_link|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Download_key')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-download_key" class="form-control" name="row[download_key]" type="text" value="{$row.download_key|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Remarks')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-remarks" class="form-control" name="row[remarks]" type="text" value="{$row.remarks|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status_switch')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-status_switch" class="form-control" name="row[status_switch]" type="number" value="{$row.status_switch|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Not_info')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-not_info" class="form-control" name="row[not_info]" type="text" value="{$row.not_info|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

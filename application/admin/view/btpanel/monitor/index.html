@@ -1,0 +1,87 @@
+<style>
+    .label {
+        cursor: pointer;
+    }
+</style>
+<div class="row" style="height:300px">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="panel panel-solid">
+            <div class="panel-heading">平均负载
+                <div class="pull-right">
+                    <span class="label label-default label-date" data-date="yesterday">昨天</span>
+                    <span class="label label-success label-active label-date" data-date="today">今天</span>
+                    <span class="label label-default label-date" data-date="last7">最近7天</span>
+                    <span class="label label-default label-date" data-date="last30">最近30天</span>
+                    <span class="label label-default label-date datetimerange">自定义</span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="chart-load" class="chart-line" style="width:100%;height:330px" data-action="getLoadAverage"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-solid">
+            <div class="panel-heading">CPU
+                <div class="pull-right">
+                    <span class="label label-default label-date" data-date="yesterday">昨天</span>
+                    <span class="label label-success label-active label-date" data-date="today">今天</span>
+                    <span class="label label-default label-date" data-date="last7">最近7天</span>
+                    <span class="label label-default label-date" data-date="last30">最近30天</span>
+                    <span class="label label-default label-date datetimerange">自定义</span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="chart-cpu" class="chart-line" style="width:100%;height:330px" data-action="getCpuIo" data-start="" data-end=""></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-solid">
+            <div class="panel-heading">内存IO
+                <div class="pull-right">
+                    <span class="label label-default label-date" data-date="yesterday">昨天</span>
+                    <span class="label label-success label-active label-date" data-date="today">今天</span>
+                    <span class="label label-default label-date" data-date="last7">最近7天</span>
+                    <span class="label label-default label-date" data-date="last30">最近30天</span>
+                    <span class="label label-default label-date datetimerange">自定义</span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="chart-memory" class="chart-line" style="width:100%;height:330px" data-action="getCpuIo"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-solid">
+            <div class="panel-heading">磁盘IO
+                <div class="pull-right">
+                    <span class="label label-default label-date" data-date="yesterday">昨天</span>
+                    <span class="label label-success label-active label-date" data-date="today">今天</span>
+                    <span class="label label-default label-date" data-date="last7">最近7天</span>
+                    <span class="label label-default label-date" data-date="last30">最近30天</span>
+                    <span class="label label-default label-date datetimerange">自定义</span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="chart-disk" class="chart-line" style="width:100%;height:330px"  data-action="getDiskIo"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-solid">
+            <div class="panel-heading">网络IO
+                <div class="pull-right">
+                    <span class="label label-default label-date" data-date="yesterday">昨天</span>
+                    <span class="label label-success label-active label-date" data-date="today">今天</span>
+                    <span class="label label-default label-date" data-date="last7">最近7天</span>
+                    <span class="label label-default label-date" data-date="last30">最近30天</span>
+                    <span class="label label-default label-date datetimerange">自定义</span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="chart-net" class="chart-line" style="width:100%;height:330px"  data-action="GetNetWorkIo"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{if $lang=='zh'}
+<html lang="zh">
+{else /}
+<html lang="en">
+{/if}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {if $lang=='zh'}
+    <title>{$row.name}-下载-PC</title>
+    {else /}
+    <title>install {$row.name}</title>
+    {/if}
+
+
+
+    <link crossorigin="anonymous" integrity="sha384-AXSlq0TElx5Ph3Cv+a46cYff/siU0UaILxC7S2aC42JKIVycqWh7GNi2oyCAtfns"
+        href="https://lib.baomitu.com/muse-ui/3.0.2/muse-ui.min.css" rel="stylesheet">
+    <script src="https://s2.pstatp.com/cdn/expire-1-M/vue/2.6.4/vue.min.js" type="application/javascript"></script>
+
+
+    <script crossorigin="anonymous" integrity="sha384-SKkBS6E5gZXXpN2gbjffZVe8cOSakvh23l65VRCn6j4cmWzL/iexkdEsmCNywyAp"
+        src="https://lib.baomitu.com/muse-ui/3.0.2/muse-ui.min.js"></script>
+    <style>
+        html {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+
+
+        .mu-avatar img {
+            border-radius: 25%;
+        }
+
+        body {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+
+        }
+
+
+        #app {
+            padding: 24px;
+            height: 100vh;
+            overflow: auto;
+        }
+
+        .bj {
+            background-image: url('{$row.icon_image}');
+            background-size: 100%;
+            background-position: center;
+            position: absolute;
+            top: -50px;
+            bottom: -50px;
+            left: -50px;
+            right: -50px;
+            filter: blur(30px);
+            min-height: 100vh;
+
+
+            /* Chrome, Safari, Opera filter: blur(200px);  -webkit-filter: blur(200px);*/
+
+            z-index: -2;
+        }
+
+        .bj1 {
+            background-color: rgba(255, 255, 255, .7);
+            position: absolute;
+            top: -50px;
+            bottom: -50px;
+            left: -50px;
+            right: -50px;
+
+
+            /* Chrome, Safari, Opera filter: blur(200px);  -webkit-filter: blur(200px);*/
+
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="header-info"
+            style="display: flex;align-items: center;justify-content: center;padding-top: 50px;;margin-bottom: 24px;">
+
+
+            <img style="width:50px;height:auto;border-radius: 15%;margin-right: 20px;" src="{$row.icon_image}">
+
+
+
+            <div class="app-name"
+                style="font-size: 26px;font-weight: 700;line-height: 50px;max-width: 70%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">
+                {$row.name}</div>
+
+        </div>
+
+        
+
+
+
+        <mu-dialog :overlay-close="false" width="360" transition="slide-bottom"  :open.sync="openFullscreen">
+            {if $lang=='zh'}
+
+            <mu-container  style="background-color:rgba(255,255,255,.9) ;padding: 24px 0;border-radius: 5px;text-align: center;">
+                <span style="color:red"> {:$row.not_info} </span>
+                
+
+            </mu-container>
+            <div style="text-align: center;margin-top: 20px;">
+
+            </div>
+            {else /}
+            <mu-container  style="background-color:rgba(255,255,255,.9) ;padding: 24px 0;border-radius: 5px;text-align: center;">
+                <span style="color:red"> {$row.not_info} </span>
+                
+            </mu-container>
+
+            {/if}
+        </mu-dialog>
+        <div class="bj"></div>
+        <div class="bj1"></div>
+        <mu-snackbar color="error" position="top" :open.sync="openSimple">
+            {$lang=='zh'?'请在 iPhone 设备中打开':'Please open it on your iPhone'}
+            <mu-button flat slot="action" @click="openSimple = false">{$lang=='zh'?'关闭':'Close'}</mu-button>
+        </mu-snackbar>
+
+
+
+
+
+    </div>
+    <script>
+        var vue = new Vue({
+                el: '#app',
+                data: {
+                    openFullscreen:true,
+
+                    bz: 0,
+                    openSimple: false,
+                    status: {$row.status_switch == 1 ? 'true' : 'false'}
+                }
+
+            }
+
+
+        )
+    </script>
+
+</body>
+
+</html>

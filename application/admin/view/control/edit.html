@@ -1,0 +1,76 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-name" data-rule="required" class="form-control" name="row[name]" type="text" value="{$row.name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Bundleid')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bundleid" data-rule="required" class="form-control" name="row[bundleid]" type="text" value="{$row.bundleid|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Remarks')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-remarks" data-rule="required" class="form-control" name="row[remarks]" type="text" value="{$row.remarks|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('签名时间')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-createtime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[createtime]" type="text" value="{:$row.createtime?datetime($row.createtime):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Expire_datetime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-expire_datetime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[expire_datetime]" type="text" value="{:$row.expire_datetime?datetime($row.expire_datetime):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Expire_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-expire_remark" data-rule="required" class="form-control" name="row[expire_remark]" type="text" value="{$row.expire_remark|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Expire_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-expire_type" data-rule="required" class="form-control selectpicker" name="row[expire_type]">
+                {foreach name="expireTypeList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.expire_type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Install_count')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-install_count" data-rule="required" class="form-control" name="row[install_count]" type="number" value="{$row.install_count|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Run_count')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-run_count" data-rule="required" class="form-control" name="row[run_count]" type="number" value="{$row.run_count|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Max_install_count')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-max_install_count" data-rule="required" class="form-control" name="row[max_install_count]" type="number" value="{$row.max_install_count|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
