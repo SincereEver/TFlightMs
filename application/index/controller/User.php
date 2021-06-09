@@ -77,26 +77,26 @@ class User extends Frontend
             $captcha = $this->request->post('captcha');
             $token = $this->request->post('__token__');
             $rule = [
-                'username'  => 'require|length:3,30',
-                'password'  => 'require|length:6,30',
-                'email'     => 'require|email',
-                'mobile'    => 'regex:/^1\d{10}$/',
+                'username' => 'require|length:3,30',
+                'password' => 'require|length:6,30',
+                'email' => 'require|email',
+                'mobile' => 'regex:/^1\d{10}$/',
                 '__token__' => 'require|token',
             ];
 
             $msg = [
                 'username.require' => 'Username can not be empty',
-                'username.length'  => 'Username must be 3 to 30 characters',
+                'username.length' => 'Username must be 3 to 30 characters',
                 'password.require' => 'Password can not be empty',
-                'password.length'  => 'Password must be 6 to 30 characters',
-                'email'            => 'Email is incorrect',
-                'mobile'           => 'Mobile is incorrect',
+                'password.length' => 'Password must be 6 to 30 characters',
+                'email' => 'Email is incorrect',
+                'mobile' => 'Mobile is incorrect',
             ];
             $data = [
-                'username'  => $username,
-                'password'  => $password,
-                'email'     => $email,
-                'mobile'    => $mobile,
+                'username' => $username,
+                'password' => $password,
+                'email' => $email,
+                'mobile' => $mobile,
                 '__token__' => $token,
             ];
             //验证码
@@ -156,20 +156,20 @@ class User extends Frontend
             $keeplogin = (int)$this->request->post('keeplogin');
             $token = $this->request->post('__token__');
             $rule = [
-                'account'   => 'require|length:3,50',
-                'password'  => 'require|length:6,30',
+                'account' => 'require|length:3,50',
+                'password' => 'require|length:6,30',
                 '__token__' => 'require|token',
             ];
 
             $msg = [
-                'account.require'  => 'Account can not be empty',
-                'account.length'   => 'Account must be 3 to 50 characters',
+                'account.require' => 'Account can not be empty',
+                'account.length' => 'Account must be 3 to 50 characters',
                 'password.require' => 'Password can not be empty',
-                'password.length'  => 'Password must be 6 to 30 characters',
+                'password.length' => 'Password must be 6 to 30 characters',
             ];
             $data = [
-                'account'   => $account,
-                'password'  => $password,
+                'account' => $account,
+                'password' => $password,
                 '__token__' => $token,
             ];
             $validate = new Validate($rule, $msg);
@@ -219,9 +219,13 @@ class User extends Frontend
 
     public function app()
     {
-        //$row = \app\common
         $uid = $this->auth->id;
         $row = \app\common\model\App::where('user_id', $uid)->select();
+        foreach ($row as $key => $val) {
+            if (!empty($val['alias'])) $val['down_url'] = config('site.config_url') . '/alias/' . $val['alias'];
+            else $val['down_url'] = config('site.config_url') . '/app/' . $val['download_key'];
+            $row[$key] = $val;
+        }
         $this->view->assign('row', $row);
         $this->view->assign('title', __('TestFlight应用'));
 
@@ -240,24 +244,24 @@ class User extends Frontend
             $renewpassword = $this->request->post("renewpassword");
             $token = $this->request->post('__token__');
             $rule = [
-                'oldpassword'   => 'require|length:6,30',
-                'newpassword'   => 'require|length:6,30',
+                'oldpassword' => 'require|length:6,30',
+                'newpassword' => 'require|length:6,30',
                 'renewpassword' => 'require|length:6,30|confirm:newpassword',
-                '__token__'     => 'token',
+                '__token__' => 'token',
             ];
 
             $msg = [
                 'renewpassword.confirm' => __('Password and confirm password don\'t match')
             ];
             $data = [
-                'oldpassword'   => $oldpassword,
-                'newpassword'   => $newpassword,
+                'oldpassword' => $oldpassword,
+                'newpassword' => $newpassword,
                 'renewpassword' => $renewpassword,
-                '__token__'     => $token,
+                '__token__' => $token,
             ];
             $field = [
-                'oldpassword'   => __('Old password'),
-                'newpassword'   => __('New password'),
+                'oldpassword' => __('Old password'),
+                'newpassword' => __('New password'),
                 'renewpassword' => __('Renew password')
             ];
             $validate = new Validate($rule, $msg, $field);

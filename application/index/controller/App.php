@@ -18,7 +18,6 @@ class App extends Frontend
         $uid = $this->auth->id;
         $row = \app\common\model\App::where('user_id', $uid)->select();
         $this->view->assign('row', $row);
-
         return $this->view->fetch();
     }
 
@@ -28,13 +27,12 @@ class App extends Frontend
         if ($this->request->isPost()) {
             //$row = $this->request->post('row');
             $data = ['az_links' => input('az_links', ''), 'by_link' => input('by_link', ''), 'remarks' => input('remarks', '')];
-            Db::name('app')->where('user_id', $uid)->where('id', $id)->update($data);
-            redirect(url());
-            /*if ($res) {
-                redirect(url());
+            $res = Db::name('app')->where('user_id', $uid)->where('id', $id)->update($data);
+            if ($res) {
+                return json(['code' => 1, 'msg' => '操作成功']);
             } else {
                 return json(['code' => 0, 'msg' => '操作失败']);
-            }*/
+            }
         }
         $row = \app\common\model\App::where('user_id', $uid)->where('id', $id)->find();
         $this->view->assign('vo', $row);

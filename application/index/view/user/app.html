@@ -32,10 +32,9 @@
                             <td style="">{$vo.name}</td>
                             <td>
                                 <div class="input-group input-group-sm" style="">
-                                    <input type="text" class="form-control input-sm"
-                                           value="{$site.config_url.'/app/'.$vo.download_key}">
+                                    <input type="text" class="form-control input-sm" value="{$vo.down_url}">
                                     <span class="input-group-btn input-group-sm">
-                                        <a href="{$site.config_url.'/app/'.$vo.download_key}" target="_blank" class="btn btn-default btn-sm">
+                                        <a href="{$vo.down_url}" target="_blank" class="btn btn-default btn-sm">
                                             <i class="fa fa-link"></i>
                                         </a>
                                     </span>
@@ -64,7 +63,7 @@
         layer.open({
             type: 2,
             content: '/index/app/edit/id/' + id,
-            area: ['500px', '450px'],
+            area: ['500px', '500px'],
             title: '编辑'
         });
     }
@@ -73,19 +72,15 @@
     .basicinfo {
         margin: 15px 0;
     }
-
     .basicinfo .row > .col-xs-4 {
         padding-right: 0;
     }
-
     .basicinfo .row > div {
         margin: 5px 0;
     }
-
     td {
         vertical-align: middle !important;
     }
-
     .panel-lead {
         padding-bottom: 0;
         color: #ccc;

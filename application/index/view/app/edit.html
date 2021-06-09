@@ -26,10 +26,10 @@
                 },
                 "upload": {
                     "cdnurl": "",
-                    "uploadurl": "\/ZHWvLnINFM.php\/ajax\/upload",
+                    "uploadurl": "\/AUNIMD.php\/ajax\/upload",
                     "bucket": "local",
-                    "maxsize": "10mb",
-                    "mimetype": "jpg,png,bmp,jpeg,gif,zip,rar,xls,xlsx",
+                    "maxsize": "300mb",
+                    "mimetype": "apk",
                     "chunking": false,
                     "chunksize": 2097152,
                     "multipart": [],
@@ -40,7 +40,7 @@
                 "controllername": "app",
                 "actionname": "edit",
                 "jsname": "backend\/app",
-                "moduleurl": "\/ZHWvLnINFM.php",
+                "moduleurl": "\/AUNIMD.php",
                 "language": "zh-cn",
                 "referer": null,
                 "__PUBLIC__": "\/",
@@ -68,14 +68,14 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-sm-2">id:</label>
                                 <div class="col-xs-12 col-sm-8">
-                                    <input disabled id="c-az_links" class="form-control" name="row[id]" type="text"
+                                    <input disabled id="c-az_id" class="form-control" name="row[id]" type="text"
                                            value="{$vo.id}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-sm-2">应用名:</label>
                                 <div class="col-xs-12 col-sm-8">
-                                    <input disabled id="c-az_links" class="form-control" name="row[name]" type="text"
+                                    <input disabled id="c-az_name" class="form-control" name="row[name]" type="text"
                                            value="{$vo.name}">
                                 </div>
                             </div>
@@ -83,14 +83,18 @@
                                 <label class="control-label col-xs-12 col-sm-2">安卓地址:</label>
                                 <div class="col-xs-12 col-sm-8">
                                     <input id="c-az_links" class="form-control" name="az_links" type="text"
-                                           value="{$vo.az_links}">
+                                           value="{$vo.az_links}" placeholder="安卓完整下载地址">
+                                    <button type="button" id="faupload-apk" data-input-id="c-az_links" class="faupload"
+                                            data-multiple="false" data-mimetype="apk"><i class="fa fa-upload"></i>
+                                        {:__('Upload')}
+                                    </button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-xs-12 col-sm-2">备用地址:</label>
                                 <div class="col-xs-12 col-sm-8">
                                     <input id="c-by_link" class="form-control" name="by_link" type="text"
-                                           value="{$vo.by_link}">
+                                           value="{$vo.by_link}" placeholder="安卓备用完整下载地址">
                                 </div>
                             </div>
 
@@ -116,6 +120,19 @@
         </div>
     </div>
 </div>
+
+<!--{include file="common/script" /}-->
 <script src="/assets/js/require.min.js" data-main="/assets/js/require-backend.min.js?v=1.0.1"></script>
+<script src="/assets/libs/jquery/dist/jquery.js"></script>
+<script>
+    $(function () {
+        // 给上传按钮添加上传成功事件
+        $("#faupload-apk").data("upload-success", function (data) {
+            var url = Fast.api.cdnurl(data.url);
+            $(".c-az_links").prop("src", url);
+            Toastr.success(__('Uploaded successful'));
+        });
+    })
+</script>
 </body>
 </html>
