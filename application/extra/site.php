@@ -35,6 +35,6 @@ return [
     'imap_pass' => 'Ly123456',
     'config_domain' => 'testflight.wiki',
     'config_validity' => '5000',
-    'config_update_count' => '5',
+    'config_update_count' => '20',
     'config_desc' => '新模式TestFlight上架，苹果官方认可，零风险，分发再无忧，远离APP频繁掉签，远离其他方式高价钱，无需信任直接安装，无限量下载和更新。',
 ];

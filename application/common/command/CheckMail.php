@@ -100,7 +100,7 @@ class CheckMail extends Command
     protected function execute(Input $input, Output $output)
     {
         //$file = fopen(__DIR__ . '/lock', 'w+');
-        $file = fopen(__DIR__ . '/lock/UpdateLinks.lock', 'w+');
+        $file = fopen(__DIR__ . '/lock/CheckMail.lock', 'w+');
 
         //加锁
         if (flock($file, LOCK_EX | LOCK_NB)) {

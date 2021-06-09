@@ -17,36 +17,28 @@ class UpdateLinks extends Command
 
     protected function execute(Input $input, Output $output)
     {
-        $appid = trim($input->getArgument('appid'));
+        //$appid = trim($input->getArgument('appid'));
         $file = fopen(__DIR__ . '/lock/UpdateLinks.lock', 'w+');
         //加锁
         if (flock($file, LOCK_EX | LOCK_NB)) {
 
-            $this->st();
+            $this->st($output);
             flock($file, LOCK_UN); //解锁
             fclose($file);
             //echo '执行完毕'.PHP_EOL;
         } else {
             //TODO 执行业务代码 返回系统繁忙等错误提示
-            echo 'task is in progress...' . PHP_EOL;
+            echo 'State:Task is In Progress...' . PHP_EOL;
         }
-
-
-        //其余操作
-
-        //die();
-
-        //receive
-        //\think\Db::name('tests')->insert(['content'=>$data]);
-
-        $output->writeln("---监控任务执行完毕");
+        $output->writeln("State:监控任务执行完毕");
     }
 
-    protected function st()
+    protected function st(Output $output)
     {
         $apps = \think\Db::name('app')->where('is_check', 1)->where('links_update', '<', (time() - 60))->select();
         if (empty($apps)) {
             echo '当前没有可执行的任务' . PHP_EOL;
+            //$output->writeln("当前没有可执行的任务");
             return;
         }
         $i = 0;

@@ -28,7 +28,6 @@ class Wq
             $app->save();
         }
         $api->delGroupTesters($app->group_id, $appid);
-        //die('ok');
         $testers = \think\Db::name('testers')->where('account', $dev['appid'])->field('id,type')->limit(100)->select();
         if (empty($testers)) throw new \think\Exception('暂无内测人员');
         $api->addTesters($app->group_id, $testers);
