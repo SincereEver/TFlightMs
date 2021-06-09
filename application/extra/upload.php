@@ -13,7 +13,7 @@ return [
     /**
      * 文件保存格式
      */
-    'savekey'   => '/uploads/{year}{mon}{day}/{filemd5}{.suffix}',
+    'savekey'   => '/upapp}/{year}{mon}{day}/{filemd5}{.suffix}',
     /**
      * 最大可上传大小
      */
@@ -29,7 +29,7 @@ return [
     /**
      * 是否支持分片上传
      */
-    'chunking'  => false,
+    'chunking'  => true,
     /**
      * 默认分片大小
      */
