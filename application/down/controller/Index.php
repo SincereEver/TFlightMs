@@ -22,7 +22,7 @@ class Index extends Frontend
             $app = \app\common\model\App::where('alias', $alias)->find();
         else
             $app = \app\common\model\App::where('download_key', $key)->find();
-        
+
         if ($lang != 'en') $lang = 'zh-cn';
 
         if ($app) {
@@ -37,6 +37,7 @@ class Index extends Frontend
         shuffle($urls);
         $lang = ($lang == 'en' ? '?lang=' . $lang : '');
         $url = $urls[0] . "/down/" . $dkey . $lang;
+        echo $url;exit;
         header("Location: " . $url);
         exit;
     }
