@@ -13,7 +13,7 @@ return [
     /**
      * 文件保存格式
      */
-    'savekey'   => '/upapp}/{year}{mon}{day}/{filemd5}{.suffix}',
+    'savekey'   => '/upapp/{year}{mon}{day}/{filemd5}{.suffix}',
     /**
      * 最大可上传大小
      */
