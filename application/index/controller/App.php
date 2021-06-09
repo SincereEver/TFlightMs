@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 use app\common\controller\Frontend;
+use think\Db;
 
 class App extends Frontend
 {
@@ -20,26 +21,21 @@ class App extends Frontend
 
         return $this->view->fetch();
     }
-    
+
     public function edit($id)
     {
         $uid = $this->auth->id;
-        
-        if($this->request->isAjax()){
+        if ($this->request->isPost()) {
             //$row = $this->request->post('row');
-            $data = ['az_links'=>input('az_links',''),'by_link'=>input('by_link',''),'remarks'=>input('remarks','')];
-            
-            $res = \think\Db::name('app')->where('user_id', $uid)->where('id', $id)->update($data);
-            if($res){
-                return ['code'=>1,'msg'=>'操作成功'];
-            }else{
-                 return ['code'=>0,'msg'=>'操作失败'];
-            }
-           
+            $data = ['az_links' => input('az_links', ''), 'by_link' => input('by_link', ''), 'remarks' => input('remarks', '')];
+            Db::name('app')->where('user_id', $uid)->where('id', $id)->update($data);
+            redirect(url());
+            /*if ($res) {
+                redirect(url());
+            } else {
+                return json(['code' => 0, 'msg' => '操作失败']);
+            }*/
         }
-        //$row = \app\common
-        
-        
         $row = \app\common\model\App::where('user_id', $uid)->where('id', $id)->find();
         $this->view->assign('vo', $row);
 

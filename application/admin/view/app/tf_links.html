@@ -2,15 +2,11 @@
     <div class="panel-lead">
         TF内测链接 (<b>{php}echo count($row);{/php}</b>)
     </div>
-    
-
 </div>
-
 
 <table id="table" class="table table-striped">
     <div style="margin: 10px 0;">
         <button data-url="app/createLinks/ids/{$ids}" type="submit" class="btn btn-primary btn-ajax btn-magic"><i class="fa fa-repeat"></i>{php}echo count($row)==0?' 获取链接':' 重新获取链接';{/php} </button>
-
         <button data-url="/updateLinks/{$ids}" type="submit" class="btn btn-primary btn-ajax btn-magic"><i class="fa fa-repeat"></i> 外部更新</button>
     </div>
 
@@ -22,7 +18,6 @@
             <th>接收邮箱</th>
             <th>获取时间</th>
             <th>操作</th>
-
         </tr>
     </thead>
     <tbody>
@@ -47,10 +42,8 @@
                     <i class="fa fa-trash"></i>
                 </a>
             </td>
-
         </tr>
         {/volist}
-
     </tbody>
 </table>
 <script>

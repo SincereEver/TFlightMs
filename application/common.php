@@ -5,12 +5,11 @@
 use Symfony\Component\VarExporter\VarExporter;
 
 
-
-
 function arr(string $str)
 {
     return json_decode($str, true);
 }
+
 /**
  * 筛选数组
  *
@@ -32,7 +31,7 @@ if (!function_exists('__')) {
     /**
      * 获取语言变量值
      * @param string $name 语言变量名
-     * @param array  $vars 动态变量值
+     * @param array $vars 动态变量值
      * @param string $lang 语言
      * @return mixed
      */
@@ -54,7 +53,7 @@ if (!function_exists('format_bytes')) {
 
     /**
      * 将字节转换为可读文本
-     * @param int    $size      大小
+     * @param int $size 大小
      * @param string $delimiter 分隔符
      * @return string
      */
@@ -72,7 +71,7 @@ if (!function_exists('datetime')) {
 
     /**
      * 将时间戳转换为日期时间
-     * @param int    $time   时间戳
+     * @param int $time 时间戳
      * @param string $format 日期时间格式
      * @return string
      */
@@ -87,7 +86,7 @@ if (!function_exists('human_date')) {
 
     /**
      * 获取语义化时间
-     * @param int $time  时间
+     * @param int $time 时间
      * @param int $local 本地时间
      * @return string
      */
@@ -101,7 +100,7 @@ if (!function_exists('cdnurl')) {
 
     /**
      * 获取上传资源的CDN的地址
-     * @param string  $url    资源相对地址
+     * @param string $url 资源相对地址
      * @param boolean $domain 是否显示域名 或者直接传入域名
      * @return string
      */
@@ -151,8 +150,8 @@ if (!function_exists('rmdirs')) {
 
     /**
      * 删除文件夹
-     * @param string $dirname  目录
-     * @param bool   $withself 是否删除自身
+     * @param string $dirname 目录
+     * @param bool $withself 是否删除自身
      * @return boolean
      */
     function rmdirs($dirname, $withself = true)
@@ -181,7 +180,7 @@ if (!function_exists('copydirs')) {
     /**
      * 复制文件夹
      * @param string $source 源文件夹
-     * @param string $dest   目标文件夹
+     * @param string $dest 目标文件夹
      */
     function copydirs($source, $dest)
     {
@@ -215,7 +214,7 @@ if (!function_exists('addtion')) {
 
     /**
      * 附加关联字段数据
-     * @param array $items  数据列表
+     * @param array $items 数据列表
      * @param mixed $fields 渲染的来源字段
      * @return array
      */
@@ -423,4 +422,92 @@ if (!function_exists('xss_clean')) {
     {
         return \app\common\library\Security::instance()->xss_clean($content, $is_image);
     }
+}
+
+/**
+ * curl模拟post请求
+ * @params  string      $url            [请求地址]
+ * @params  string      $post_data      [请求数据]
+ * @params  string      $timeout        [超时时间]
+ * @params  string      $header         [设置的header头信息]
+ * @params  string      $data_type      [请求数据的格式]
+ * @return  string        $result       [响应结果]
+ */
+function curlPost($url, $post_data = [], $timeout = 5, $header = "", $data_type = "")
+{
+    $header = empty($header) ? '' : $header;
+    if ($data_type == 'json') {
+        $postData = json_encode($post_data);
+    }
+    if ($data_type == 'array') {
+        $postData = $post_data;
+    }
+    if (is_array($post_data)) {
+        $postData = http_build_query($post_data, '', '&');
+    }
+    $ch = curl_init();
+    //抓取指定网页
+    curl_setopt($ch, CURLOPT_URL, $url);
+    //以字符串形式返回到浏览器当中
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //对认证证书来源的检查   // https请求 不验证证书和hosts
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //从证书中检查SSL加密算法是否存在
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    //请求方式
+    curl_setopt($ch, CURLOPT_POST, true);
+    //模拟的header头
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    //Post提交的数据包
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    //设置超时限制防止死循环
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    //拿到请求头信息
+    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+
+    $result = curl_exec($ch);
+    // 打印请求的header信息
+    //$requestHeader = curl_getinfo($ch);
+    //print_r($requestHeader);
+    //die;
+    curl_close($ch);
+    return $result;
+}
+
+/**
+ * curl模拟Get请求
+ * @params  string      $url            [请求地址]
+ * @params  string      $timeout        [超时时间]
+ * @params  string      $header         [设置的header头信息]
+ * @return  string        $result       [响应结果]
+ */
+function curlGet($durl, $timeout = 5, $headers = [])
+{
+    // header传送格式
+    $header = empty($header) ? [] : $header;
+    // 初始化
+    $curl = curl_init();
+    // 设置url路径
+    curl_setopt($curl, CURLOPT_URL, $durl);
+    // 将 curl_exec()获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回
+    curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+    // 添加头信息
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    // CURLINFO_HEADER_OUT选项可以拿到请求头信息
+    curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+    //设置超时限制防止死循环
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+    // 不验证SSL
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    // 执行
+    $data = curl_exec($curl);
+    // 关闭连接
+    curl_close($curl);
+    // 返回数据
+    return $data;
 }

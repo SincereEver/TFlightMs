@@ -13,7 +13,13 @@
 \think\Route::rule('down/:key', 'down/index/down'); //updateLinks
 \think\Route::rule('updateLinks/:ids', 'down/index/updateLinks');
 \think\Route::rule('testflight/ids/:ids', 'down/index/testflight');
+
+//APP加载TF链接
 \think\Route::rule('loading/ids/:ids', 'down/index/loading');
+
+//别名做链接-实现不掉链
+\think\Route::rule('alias/:alias/[:lang]', 'down/index/alias');
+
 //testflight/ids/
 
 return [

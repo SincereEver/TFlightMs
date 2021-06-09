@@ -29,12 +29,26 @@ class App extends Backend
         parent::import();
     }
 
+    public function checkEnName()
+    {
+        if ($this->request->isAjax()) {
+            $name = input('post.name', '');
+            $appid = input('post.appid', 0);
+            if (empty($appid)) return $this->error('应用有误');
+            if (empty($name)) return $this->success('可使用');
+            $app = $this->model->where('id', '<>', $appid)->where('name_en', $name)->find();
+            if (!empty($app->id)) {
+                return $this->error('英文名/别名已存在');
+            }
+            return $this->success('可使用');
+        }
+    }
+
     /**
      * 默认生成的控制器所继承的父类中有index/add/edit/del/multi五个基础方法、destroy/restore/recyclebin三个回收站方法
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
-
 
     /**
      * 查看
@@ -53,20 +67,20 @@ class App extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
             $list = $this->model
-
                 ->where($where)
                 ->order($sort, $order)
                 ->paginate($limit);
 
             foreach ($list as $row) {
                 $row['links_count'] = \think\Db::name('links')->where('app_id', $row['id'])->count();
-                $row['down_url'] = config('site.config_url') . '/app/' . $row['download_key'];
+                //$row['down_url'] = config('site.config_url') . '/app/' . $row['download_key'];
+                if (!empty($row['alias'])) $row['down_url'] = config('site.config_url') . '/alias/' . $row['alias'];
+                else $row['down_url'] = config('site.config_url') . '/app/' . $row['download_key'];
                 $row['username'] = $row->userName();
                 $row['dev_id'] = $row->appId();
-                $row['qr_link']='https://wenhairu.com/static/api/qr/?size=200&text='.$row['down_url'];
-                $row->visible(['is_check','links_count', 'dev_id', 'username', 'down_url', 'id', 'developer_account_id', 'user_id', 'name', 'icon_image', 'bid', 'download_count', 'view_count', 'qr_link', 'download_key', 'remarks', 'status_switch']);
+                $row['qr_link'] = 'https://wenhairu.com/static/api/qr/?size=200&text=' . $row['down_url'];
+                $row->visible(['is_check', 'links_count', 'dev_id', 'username', 'down_url', 'id', 'developer_account_id', 'user_id', 'name', 'icon_image', 'bid', 'download_count', 'view_count', 'qr_link', 'download_key', 'remarks', 'status_switch']);
             }
-
             $result = array("total" => $list->total(), "rows" => $list->items());
 
             return json($result);
@@ -79,7 +93,7 @@ class App extends Backend
 
     public function syncList()
     {
-        $devList = \app\common\model\DeveloperAccount::field('id,lssuer_id,key_id,p8_base64,is_testers,appid,web_cookie_content')->where('status_switch',1)->select();
+        $devList = \app\common\model\DeveloperAccount::field('id,lssuer_id,key_id,p8_base64,is_testers,appid,web_cookie_content')->where('status_switch', 1)->select();
         $appList = [];
         $data = [];
 
@@ -117,7 +131,7 @@ class App extends Backend
                     }
                 }
                 foreach ($appList as $v) {
-                    $data[] = ['id' => (int) $v['id'], 'developer_account_id' => $dev['id'], 'bid' => $v['attributes']['bundleId'], 'name' => $v['attributes']['name']];
+                    $data[] = ['id' => (int)$v['id'], 'developer_account_id' => $dev['id'], 'bid' => $v['attributes']['bundleId'], 'name' => $v['attributes']['name']];
                 }
                 //$appList = array_merge_recursive($api->getApps('?fields[apps]=bundleId,name'), $appList);
             } catch (\Exception $e) {
@@ -130,12 +144,8 @@ class App extends Backend
         }
         \app\common\model\App::saveApps($data);
         \think\Cache::set('apps_update', time());
-
-
         return $this->success('同步完成', null, $data);
     }
-
-
 
 
     public function syncIcon($ids)
@@ -155,36 +165,38 @@ class App extends Backend
         if (empty($list)) {
             return $this->error('应用还未上传构建版本');
         } else {
-            if(count($list)==1){
+            if (count($list) == 1) {
                 $icon = $list[0]['attributes']['iconAssetToken']['templateUrl'];
-            $icon  = str_replace(array("{w}", "{h}", '{f}'), array("200", "200", 'png'), $icon);
-            $app->icon_image = $icon;
-            $app->save();
-            return $this->success('同步成功', null, $list);
-            }else{
+                $icon = str_replace(array("{w}", "{h}", '{f}'), array("200", "200", 'png'), $icon);
+                $app->icon_image = $icon;
+                $app->save();
+                return $this->success('同步成功', null, $list);
+            } else {
                 $maxKey = 0;
                 $maxNum = 0;
-                foreach ($list as $key=>$arr){
+                foreach ($list as $key => $arr) {
                     $v = (int)$arr['attributes']['version'];
-                    if($v>$maxNum){
-                        $maxNum=$v;
-                        $maxKey=$key;
+                    if ($v > $maxNum) {
+                        $maxNum = $v;
+                        $maxKey = $key;
                     }
                 }
                 $icon = $list[$maxKey]['attributes']['iconAssetToken']['templateUrl'];
-            $icon  = str_replace(array("{w}", "{h}", '{f}'), array("200", "200", 'png'), $icon);
-            $app->icon_image = $icon;
-            $app->save();
-            return $this->success('同步成功', null, $list);
-                
+                $icon = str_replace(array("{w}", "{h}", '{f}'), array("200", "200", 'png'), $icon);
+                $app->icon_image = $icon;
+                $app->save();
+                return $this->success('同步成功', null, $list);
+
             }
-            
-            
+
+
         }
     }
+
     protected function addTesters()
     {
     }
+
     public function tfLinks($ids)
     {
         $row = \think\Db::name('links')->where('app_id', $ids)->limit(100)->order('update_time', 'desc')->select();
@@ -192,6 +204,7 @@ class App extends Backend
         $this->view->assign('ids', $ids);
         return $this->view->fetch();
     }
+
     public function delLink($ids)
     {
         try {

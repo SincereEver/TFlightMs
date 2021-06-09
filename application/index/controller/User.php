@@ -179,7 +179,8 @@ class User extends Frontend
                 return false;
             }
             if ($this->auth->login($account, $password)) {
-                $this->success(__('Logged in successful'), $url ? $url : url('user/index'));
+                //$this->success(__('Logged in successful'), $url ? $url : url('user/app'));
+                $this->success(__('Logged in successful'), url('user/app'));
             } else {
                 $this->error($this->auth->getError(), null, ['token' => $this->request->token()]);
             }

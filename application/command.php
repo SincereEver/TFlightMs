@@ -19,4 +19,5 @@ return [
     'app\admin\command\Api',
     'app\common\command\Receive',
     'app\common\command\UpdateLinks',
+    'app\common\command\CheckMail',
 ];

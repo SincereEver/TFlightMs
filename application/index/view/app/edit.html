@@ -1,93 +1,121 @@
-
 <!DOCTYPE html>
 <html lang="zh-cn">
-    <head>
-        <meta charset="utf-8">
-<title></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="renderer" content="webkit">
-<meta name="referrer" content="never">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta name="referrer" content="never">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico"/>
+    <!-- Loading Bootstrap -->
+    <link href="/assets/css/backend.min.css?v=1.0.1" rel="stylesheet">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="/assets/js/html5shiv.js"></script>
+    <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        var require = {
+            config: {
+                "site": {
+                    "name": "TestFlight APP",
+                    "cdnurl": "",
+                    "version": "1.0.1",
+                    "timezone": "Asia\/Shanghai",
+                    "languages": {"backend": "zh-cn", "frontend": "zh-cn"}
+                },
+                "upload": {
+                    "cdnurl": "",
+                    "uploadurl": "\/ZHWvLnINFM.php\/ajax\/upload",
+                    "bucket": "local",
+                    "maxsize": "10mb",
+                    "mimetype": "jpg,png,bmp,jpeg,gif,zip,rar,xls,xlsx",
+                    "chunking": false,
+                    "chunksize": 2097152,
+                    "multipart": [],
+                    "multiple": false,
+                    "storage": "local"
+                },
+                "modulename": "admin",
+                "controllername": "app",
+                "actionname": "edit",
+                "jsname": "backend\/app",
+                "moduleurl": "\/ZHWvLnINFM.php",
+                "language": "zh-cn",
+                "referer": null,
+                "__PUBLIC__": "\/",
+                "__ROOT__": "\/",
+                "__CDN__": ""
+            }
+        };
+    </script>
+</head>
 
-<link rel="shortcut icon" href="/assets/img/favicon.ico" />
-<!-- Loading Bootstrap -->
-<link href="/assets/css/backend.min.css?v=1.0.1" rel="stylesheet">
-
-
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-<!--[if lt IE 9]>
-  <script src="/assets/js/html5shiv.js"></script>
-  <script src="/assets/js/respond.min.js"></script>
-<![endif]-->
-<script type="text/javascript">
-    var require = {
-        config:  {"site":{"name":"TestFlight APP","cdnurl":"","version":"1.0.1","timezone":"Asia\/Shanghai","languages":{"backend":"zh-cn","frontend":"zh-cn"}},"upload":{"cdnurl":"","uploadurl":"\/ZHWvLnINFM.php\/ajax\/upload","bucket":"local","maxsize":"10mb","mimetype":"jpg,png,bmp,jpeg,gif,zip,rar,xls,xlsx","chunking":false,"chunksize":2097152,"multipart":[],"multiple":false,"storage":"local"},"modulename":"admin","controllername":"app","actionname":"edit","jsname":"backend\/app","moduleurl":"\/ZHWvLnINFM.php","language":"zh-cn","referer":null,"__PUBLIC__":"\/","__ROOT__":"\/","__CDN__":""}    };
-</script>
-
-    </head>
-
-    <body class="inside-header inside-aside is-dialog">
-        <div id="main" role="main">
-            <div class="tab-content tab-addtabs">
-                <div id="content">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <section class="content-header hide">
-                                <h1>
-                                                                        <small></small>
-                                </h1>
-                            </section>
-                                <div class="content">
-                                   
-                                <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">id:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input disabled id="c-az_links" class="form-control" name="row[id]" type="text" value="{$vo.id}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">应用名:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input disabled id="c-az_links" class="form-control" name="row[name]" type="text" value="{$vo.name}">
-        </div>
-    </div>
-
-    
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">安卓地址:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-az_links" class="form-control" name="az_links" type="text" value="{$vo.az_links}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">备用地址:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-by_link" class="form-control" name="by_link" type="text" value="{$vo.by_link}">
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">备注:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-remarks" class="form-control" name="remarks" type="text" value="{$vo.remarks}">
-        </div>
-    </div>
-    
-    <div class="form-group ">
-        <label class="control-label col-xs-12 col-sm-2"></label>
-        <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success  ">确定</button>
-            <button type="reset" class="btn btn-default ">重置</button>
-        </div>
-    </div>
-</form>
-
+<body class="inside-header inside-aside is-dialog">
+<div id="main" role="main">
+    <div class="tab-content tab-addtabs">
+        <div id="content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <section class="content-header hide">
+                        <h1>
+                            <small></small>
+                        </h1>
+                    </section>
+                    <div class="content">
+                        <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST"
+                              action="">
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-2">id:</label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <input disabled id="c-az_links" class="form-control" name="row[id]" type="text"
+                                           value="{$vo.id}">
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-2">应用名:</label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <input disabled id="c-az_links" class="form-control" name="row[name]" type="text"
+                                           value="{$vo.name}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-2">安卓地址:</label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <input id="c-az_links" class="form-control" name="az_links" type="text"
+                                           value="{$vo.az_links}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-2">备用地址:</label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <input id="c-by_link" class="form-control" name="by_link" type="text"
+                                           value="{$vo.by_link}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-2">备注:</label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <input id="c-remarks" class="form-control" name="remarks" type="text"
+                                           value="{$vo.remarks}">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <label class="control-label col-xs-12 col-sm-2"></label>
+                                <div class="col-xs-12 col-sm-8">
+                                    <button type="submit" class="btn btn-success  ">确定</button>
+                                    <button type="reset" class="btn btn-default ">重置</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="/assets/js/require.min.js" data-main="/assets/js/require-backend.min.js?v=1.0.1"></script>
-    </body>
+    </div>
+</div>
+<script src="/assets/js/require.min.js" data-main="/assets/js/require-backend.min.js?v=1.0.1"></script>
+</body>
 </html>

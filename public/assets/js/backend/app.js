@@ -198,7 +198,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                
             },
             urls: function (value, row, index) {
-                return `<div class="input-group input-group-sm" style="width:200px;"><input type="text" id="id${row.id}" class="form-control input-sm btn-copy" value="${value}"><span class="input-group-btn input-group-sm"><a title="打开地址" href="${value}" target="_blank" class="btn btn-default btn-copy btn-sm"><i  class="fa fa-link"></i></a></span></div>`;
+                return `<div class="input-group input-group-sm" style="width:250px;"><input type="text" id="id${row.id}" class="form-control input-sm btn-copy" value="${value}"><span class="input-group-btn input-group-sm"><a title="打开地址" href="${value}" target="_blank" class="btn btn-default btn-copy btn-sm"><i  class="fa fa-link"></i></a></span></div>`;
             },
             ip: function (value, row, index) {
                 return '<a class="btn btn-xs btn-ip bg-success"><i class="fa fa-map-marker"></i> ' + value + '</a>';
