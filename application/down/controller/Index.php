@@ -36,8 +36,7 @@ class Index extends Frontend
         $urls = explode("\n", config('site.config_down_urls'));
         shuffle($urls);
         $lang = ($lang == 'en' ? '?lang=' . $lang : '');
-        $url = $urls[0] . "/down/" . $dkey . $lang;
-        echo $url;exit;
+        $url = trim($urls[0]) . "/down/" . $dkey . $lang;
         header("Location: " . $url);
         exit;
     }
