@@ -192,8 +192,8 @@ class Auth extends \fast\Auth
         //判断管理员IP是否变动
         if (Config::get('fastadmin.loginip_check')) {
             if (!isset($admin['loginip']) || $admin['loginip'] != request()->ip()) {
-                $this->logout();
-                return false;
+                //$this->logout();
+                //return false;
             }
         }
         $this->logined = true;
